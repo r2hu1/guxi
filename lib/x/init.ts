@@ -11,6 +11,7 @@ export async function getXAccessToken(userId: string) {
   if (!token?.accessToken) {
     return null;
   }
+  console.log("TOKEN", token);
   return token.accessToken;
 }
 

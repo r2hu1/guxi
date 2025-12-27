@@ -12,6 +12,7 @@ export default function ConnectXPage() {
     await authClient.linkSocial({
       provider: "twitter",
       callbackURL: `/dashboard`,
+      scopes: ["tweet.write", "users.read", "offline.access"],
     });
     setLoading(false);
   };

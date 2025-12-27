@@ -7,10 +7,19 @@ import { useState } from "react";
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const handleLogout = async () => {
     setLoading(true);
     await authClient.signOut();
     window.location.href = "/";
+  };
+  const handleUnlink = async () => {
+    setLoading2(true);
+    await authClient.unlinkAccount({
+      providerId: "twitter",
+    });
+    window.location.reload();
+    setLoading2(false);
   };
 
   return (
@@ -20,14 +29,23 @@ export default function DashboardPage() {
         <p className="text-muted-foreground text-sm">
           Try creating a public GitHub repository and we'll tweet it for you!
         </p>
-        <Button className="!mt-4" onClick={handleLogout}>
-          Logout{" "}
-          {loading ? (
-            <Loader2 className="animate-spin size-4" />
-          ) : (
-            <LogOut className="size-4" />
-          )}
-        </Button>
+        <div className="flex items-center gap-2 !mt-4">
+          <Button
+            disabled={loading2}
+            variant="secondary"
+            onClick={handleUnlink}
+          >
+            Unlink X
+          </Button>
+          <Button onClick={handleLogout}>
+            Logout{" "}
+            {loading ? (
+              <Loader2 className="animate-spin size-4" />
+            ) : (
+              <LogOut className="size-4" />
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
