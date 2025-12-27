@@ -8,7 +8,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const event = req.headers.get("x-github-event");
   const body = await req.json();
-  console.log(body);
+  console.log("BODY", body);
 
   console.log("GitHub event:", event);
 
