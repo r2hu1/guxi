@@ -6,10 +6,10 @@ export default function Hero() {
   return (
     <section className="py-28 px-6">
       <div className="mx-auto space-y-8 w-full max-w-6xl text-center">
-        <h1 className="text-3xl md:text-6xl !leading-tight lg:text-7xl font-medium">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl !leading-tight lg:text-7xl font-medium">
           Tweet your GitHub launches automatically using AI.
         </h1>
-        <p className="sm:text-lg text-muted-foreground leading-tight max-w-2xl mx-auto">
+        <p className="md:text-lg text-muted-foreground leading-tight max-w-2xl mx-auto">
           Guxi is a self-hosted web-app that automatically tweets your GitHub
           launches using AI. It's built with Next.js, TypeScript, and Tailwind
           CSS. It's easy to self-host and customize to your needs.
