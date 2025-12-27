@@ -1,8 +1,34 @@
 "use client";
+
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth/client";
+import { Loader2, LogOut } from "lucide-react";
+import { useState } from "react";
+
 export default function DashboardPage() {
+  const [loading, setLoading] = useState(false);
+  const handleLogout = async () => {
+    setLoading(true);
+    await authClient.signOut();
+    window.location.href = "/";
+  };
+
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="fixed inset-0 flex items-center justify-between">
+      <div className="mx-auto max-w-sm space-y-2 bg-secondary/60 rounded-md border-border/60 border-2 p-4">
+        <h1 className="text-lg font-medium">All Set!</h1>
+        <p className="text-muted-foreground text-sm">
+          Try creating a public GitHub repository and we'll tweet it for you!
+        </p>
+        <Button className="!mt-4" onClick={handleLogout}>
+          Logout{" "}
+          {loading ? (
+            <Loader2 className="animate-spin size-4" />
+          ) : (
+            <LogOut className="size-4" />
+          )}
+        </Button>
+      </div>
     </div>
   );
 }

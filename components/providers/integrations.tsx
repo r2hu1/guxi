@@ -37,7 +37,11 @@ export function Integrations({ children }: { children: ReactNode }) {
   }, [router, pathname]);
 
   if (loading) {
-    return <Skeleton className="h-40 w-full" />;
+    return (
+      <main className="flex items-center justify-center fixed inset-0 px-6">
+        <Skeleton className="h-48 w-full max-w-md" />
+      </main>
+    );
   }
 
   return <>{children}</>;
