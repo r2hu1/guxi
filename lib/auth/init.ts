@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { sendEmail } from "../email";
 
 export const auth = betterAuth({
+  trustedOrigins: ["http://localhost:3000", "https://guxi.vercel.app"],
   database: drizzleAdapter(db, {
     provider: "pg",
   }),

@@ -1,4 +1,10 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  uniqueIndex,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -59,3 +65,19 @@ export const verification = pgTable("verification", {
     () => /* @__PURE__ */ new Date(),
   ),
 });
+
+export const githubInstallations = pgTable(
+  "github_installations",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").notNull(),
+    installationId: text("installation_id").notNull(),
+    accountLogin: text("account_login"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    installationUnique: uniqueIndex(
+      "github_installations_installation_unique",
+    ).on(t.installationId),
+  }),
+);

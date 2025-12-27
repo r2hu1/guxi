@@ -8,6 +8,7 @@ export default function AuthPage() {
     const data = await authClient.signIn.social({
       provider: "github",
       scopes: ["read:user", "user:email", "repo"],
+      callbackURL: "/install-app",
     });
   };
   return (

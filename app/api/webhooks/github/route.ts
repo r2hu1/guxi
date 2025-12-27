@@ -1,25 +1,40 @@
+import { db } from "@/db/client";
+import { githubInstallations } from "@/db/schema";
 import { NextResponse } from "next/server";
-
-export async function GET() {
-  console.log("TEST ROUTE HIT");
-  return NextResponse.json({ ok: true });
-}
+import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
   const event = req.headers.get("x-github-event");
   const body = await req.json();
-  console.log("BODY", body);
 
-  console.log("GitHub event:", event);
+  const installationId = body.installation?.id;
 
-  if (event === "push") {
-    console.log("Repo:", body.repository?.full_name);
-    console.log("Commits:", body.commits?.length);
+  if (!installationId) {
+    return NextResponse.json({ ignored: true });
   }
 
-  if (event === "repository") {
-    console.log("Repo action:", body.action);
-    console.log("Repo name:", body.repository?.full_name);
+  const [installation] = await db
+    .select()
+    .from(githubInstallations)
+    .where(eq(githubInstallations.installationId, installationId))
+    .limit(1);
+
+  if (!installation) {
+    return NextResponse.json({ ignored: true });
+  }
+
+  if (event === "installation" && body.action === "deleted") {
+    await db
+      .delete(githubInstallations)
+      .where(eq(githubInstallations.installationId, installationId));
+  }
+
+  if (event === "repository" && body.action === "created") {
+    console.log(body.repository.full_name);
+  }
+
+  if (event === "push") {
+    console.log(body.repository.full_name);
   }
 
   return NextResponse.json({ ok: true });
