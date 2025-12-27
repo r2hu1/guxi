@@ -9,8 +9,6 @@ import { postTweet } from "@/lib/x/init";
 export async function POST(req: Request) {
   const event = req.headers.get("x-github-event");
   const body = await req.json();
-  console.log("BODYYYY", body);
-  console.log("EVENTTTTT", event);
 
   const installationId = body.installation?.id;
 
