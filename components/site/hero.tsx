@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="py-28 px-6">
-      <div className="mx-auto space-y-8 w-full max-w-6xl text-center">
+      <div className="mx-auto space-y-8 w-full max-w-4xl text-center">
         <h1 className="text-3xl sm:text-4xl md:text-6xl !leading-tight font-medium">
           Tweet your GitHub launches automatically using AI.
         </h1>
